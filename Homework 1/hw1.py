@@ -21,7 +21,7 @@ menu = ""
 while menu != 'q':
     print('MENU\na - Add fish\no - Output all fish\nq- Quit')
     menu = input("Please make a selection:\n")
-    # adds row to table in sql
+    # option to add row to table in sql
     if menu == 'a':
         #user inputs
         superclass = input("Please enter the fish's superclass:\n")
@@ -35,11 +35,20 @@ while menu != 'q':
         # executes to MySQL
         mycursor.execute(row_add, row_value)
         fish_db.commit()
-        # gives user confirmation that row was added
-        print("Row", mycursor.rowcount, "successfully inserted!\n")
+    
     # option to output table
     elif menu == 'o':
-        pass
+        return_table = "SELECT * FROM fish"
+        mycursor.execute(return_table)
+        rows = mycursor.fetchall()
+        for row in rows:
+            print("ID:", row[0])
+            print("Superclass:", row[1])
+            print("Species:", row[2])
+            print("Color:", row[3])
+            print("Acquired:", row[4])
+            print("Alive:", row[5])
+        
     #option to quit
     elif menu == 'q':
         break
