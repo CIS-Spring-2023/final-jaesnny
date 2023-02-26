@@ -9,6 +9,8 @@ Homework 1
 Class 5 restapi.py
 https://pythonbasics.org/flask-http-methods/
 https://www.geeksforgeeks.org/put-method-python-requests/
+https://www.mysqltutorial.org/python-mysql-update/
+https://www.w3schools.com/sql/sql_delete.asp
 """
 
 
@@ -55,7 +57,7 @@ def api_add_sb():
     # confirms to user that row was added
     return 'Row added!'
 
-"""
+
 # update row from table with id
 @app.route('/api/snowboard/update/<id>', methods=['PUT'])
 def api_update_sb(id):
@@ -68,16 +70,17 @@ def api_update_sb(id):
     size = request.form['size']
 
     # SQL statement to update row
-    update_row = "UPDATE snowboard SET (%s, %s, %s, %s, %s)"
-    update_value = (name, boardtype, brand, msrp, size)
-    where_id = "WHERE id = %s" % (update_id)
-
-    mycursor.execute(update_row, update_value, where_id)
+    update_row = """ UPDATE snowboard 
+    SET name = %s, boardtype = %s, brand = %s, msrp = %s, size = %s
+    WHERE id = %s
+    """
+    update_value = name, boardtype, brand, msrp, size, update_id
+    mycursor.execute(update_row, update_value)
     snowboard_db.commit()
 
     # confirms to user that row was updated
     return 'Row updated!'
-"""
+
 
 # delete row from table with id
 @app.route('/api/snowboard/delete/<id>', methods = ['DELETE'])
