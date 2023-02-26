@@ -8,6 +8,7 @@ References:
 Homework 1
 Class 5 restapi.py
 https://pythonbasics.org/flask-http-methods/
+https://www.geeksforgeeks.org/put-method-python-requests/
 """
 
 
@@ -35,8 +36,6 @@ def api_get_sb():
     # returns row
     return jsonify(rows)
 
-
-
 # user add snowboard to table
 @app.route('/api/snowboard/add', methods=['POST'])
 def api_add_sb():
@@ -53,13 +52,47 @@ def api_add_sb():
 
     mycursor.execute(row_add, row_value)
     snowboard_db.commit()
-    #confirms to user that row was added
+    # confirms to user that row was added
     return 'Row added!'
 
+"""
+# update row from table with id
+@app.route('/api/snowboard/update/<id>', methods=['PUT'])
+def api_update_sb(id):
+    # input for postman
+    update_id = id
+    name = request.form['name']
+    boardtype = request.form['boardtype']
+    brand = request.form['brand']
+    msrp = request.form['msrp']
+    size = request.form['size']
 
+    # SQL statement to update row
+    update_row = "UPDATE snowboard SET (%s, %s, %s, %s, %s)"
+    update_value = (name, boardtype, brand, msrp, size)
+    where_id = "WHERE id = %s" % (update_id)
 
+    mycursor.execute(update_row, update_value, where_id)
+    snowboard_db.commit()
 
+    # confirms to user that row was updated
+    return 'Row updated!'
+"""
 
+# delete row from table with id
+@app.route('/api/snowboard/delete/<id>', methods = ['DELETE'])
+def api_delete_sb(id):
+    delete_id = id
+
+    # SQL statement to delete row
+    delete_row = "DELETE FROM snowboard WHERE id = %s" % (delete_id)
+
+    # commit to SQL database
+    mycursor.execute(delete_row)
+    snowboard_db.commit()
+
+    # confirms user that row is deleted
+    return 'Row deleted!'
 
 
 app.run()
