@@ -128,4 +128,102 @@ def view_spaceship():
     #return table
     return jsonify(rows)
 
+# update spaceship row
+@app.route('/spaceship/update/<id>', methods=['PUT'])
+def update_spaceship(id):
+    # request form to update specific row
+    update_id = id
+    maxweight = request.form['maxweight']
+    captainid = request.form['captainid']
+
+    # SQL statement to update row
+    update_row = """UPDATE spaceship
+    SET maxweight = %s, captainid = %s
+    WHERE id = %s
+    """
+    update_value = maxweight, captainid, update_id
+    mycursor.execute(update_row, update_value)
+    space_db.commit()
+
+    return 'Spaceship updated!'
+
+# delete spaceship row
+@app.route('/spaceship/delete/<id>', methods=['DELETE'])
+def delete_spaceship(id):
+    delete_id = id
+
+    # SQL statement to delete row
+    delete_row = "DELETE FROM spaceship WHERE id = %s" % (delete_id)
+    # execute to SQL
+    mycursor.execute(delete_row)
+    space_db.commit()
+
+    return 'Spaceship deleted!'
+
+# cargo APIs
+# add to cargo table
+@app.route('/cargo/add', methods=['POST'])
+def add_cargo():
+    # request form to add row to cargo table
+    weight = request.form['weight']
+    cargotype = request.form['cargotype']
+    departure = request.form['departure']
+    arrival = request.form['arrival']
+    shipid = request.form['shipid']
+
+    # SQL statement to add row
+    add_row = "INSERT INTO cargo (weight, cargotype, departure, arrival, shipid) VALUES (%s, %s, %s, %s, %s)"
+    row_values = weight, cargotype, departure, arrival, shipid
+    # commit to SQL 
+    mycursor.execute(add_row, row_values)
+    space_db.commit()
+
+    return 'Cargo added!'
+
+# view cargo table
+@app.route('/cargo', methods=['GET'])
+def view_cargo():
+    # SQL statement to view table
+    return_table = "SELECT * FROM cargo"
+    # commit to SQL
+    mycursor.execute(return_table)
+    rows = mycursor.fetchall()
+    return jsonify(rows)
+
+@app.route('/cargo/update/<id>', methods=['PUT'])
+def update_cargo(id):
+    # request form to update row
+    update_id = id
+    weight = request.form['weight']
+    cargotype = request.form['cargotype']
+    departure = request.form['departure']
+    arrival = request.form['arrival']
+    shipid = request.form['shipid']
+
+    # SQL statement to update row
+    update_row = """UPDATE cargo
+    SET weight = %s, cargotype = %s, departure = %s, arrival = %s, shipid = %s
+    WHERE id = %s
+    """
+    update_values = weight, cargotype, departure, arrival, shipid, update_id
+    # commit to SQL 
+    mycursor.execute(update_row, update_values)
+    space_db.commit()
+
+    return 'Cargo updated!'
+
+# delete cargo row
+@app.route('/cargo/delete/<id>', methods=["DELETE"])
+def delete_cargo(id):
+    delete_id = id
+
+    # SQL statement to delete row
+    delete_row = "DELETE FROM cargo WHERE id = %s" % (delete_id)
+    # execute to SQL
+    mycursor.execute(delete_row)
+    space_db.commit()
+
+    return 'Cargo deleted!'
+
+
 app.run()
