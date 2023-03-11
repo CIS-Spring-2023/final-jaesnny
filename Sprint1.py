@@ -53,10 +53,10 @@ def add_captain():
     mycursor.execute(row_add, row_value)
     space_db.commit()
     # confirms to user that row was added
-    return 'Row added!'
+    return 'Captain added!'
 
 # view captain table
-@app.route('/api/captain', methods=["GET"])
+@app.route('/captain', methods=["GET"])
 def view_captain():
     # SQL statement to view captain table
     return_table = "SELECT * FROM captain"
@@ -65,5 +65,29 @@ def view_captain():
     rows = mycursor.fetchall()
     #return table
     return jsonify(rows)
+
+# update captain table
+@app.route('/captain/update/<id>', methods=['PUT'])
+def update_captain(id):
+    # request form to update at certain id in captain table
+    update_id = id
+    firstname = request.form['firstname']
+    lastname = request.form['lastname']
+    space_rank = request.form['space_rank']
+    homeplanet = request.form['homeplanet']
+
+    # SQL statement to update row in captain table
+    update_row = """
+    UPDATE captain 
+    SET firstname = %s, lastname = %s, space_rank = %s, homeplanet = %s
+    WHERE id = %s
+    """
+    update_value = firstname, lastname, space_rank, homeplanet, update_id
+    mycursor.execute(update_row, update_value)
+    space_db.commit()
+
+    return 'Captain updated!'
+
+
 
 app.run()
