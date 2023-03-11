@@ -118,4 +118,14 @@ def add_spaceship():
 
     return 'Spaceship added!'
 
+# view spaceship table
+@app.route('/spaceship', methods = ['GET'])
+def view_spaceship():
+    return_table = "SELECT * FROM spaceship"
+    # execute to SQL
+    mycursor.execute(return_table)
+    rows = mycursor.fetchall()
+    #return table
+    return jsonify(rows)
+
 app.run()
