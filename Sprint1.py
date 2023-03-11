@@ -38,7 +38,7 @@ def all_captain():
     return jsonify(rows)
 
 # add to captain table
-@app.route('/api/captain/add', methods=["POST"])
+@app.route('/captain/add', methods=["POST"])
 def add_captain():
     #request form to add to captain table
     firstname = request.form['firstname']
@@ -55,5 +55,15 @@ def add_captain():
     # confirms to user that row was added
     return 'Row added!'
 
+# view captain table
+@app.route('/api/captain', methods=["GET"])
+def view_captain():
+    # SQL statement to view captain table
+    return_table = "SELECT * FROM captain"
+    # execute to SQL
+    mycursor.execute(return_table)
+    rows = mycursor.fetchall()
+    #return table
+    return jsonify(rows)
 
 app.run()
