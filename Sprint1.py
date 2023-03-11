@@ -24,15 +24,19 @@ space_db = mysql.connector.connect(
 
 mycursor = space_db.cursor()
 
-# view cargo table
-@app.route('/cargo/all', methods=["GET"])
-def cargo_view():
-        # SQL statement to view cargo table
-        return_cargo = """SELECT * FROM cargo"""
-        mycursor.execute(return_cargo)
-        cargo_table = mycursor.fetchall()
-        # return table
-        return jsonify(cargo_table)
+# captain APIs
+# view captain table
+@app.route('/captain', methods=['GET'])
+def all_captain():
+    # SQL statement to view table
+    return_table = "SELECT * FROM captain"
+    # execute to SQL
+    mycursor.execute(return_table)
+    rows = mycursor.fetchall()
+    space_db.commit()
+
+    return jsonify(rows)
+
 
 
 app.run()
