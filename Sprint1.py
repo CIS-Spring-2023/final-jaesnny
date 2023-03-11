@@ -66,7 +66,7 @@ def view_captain():
     #return table
     return jsonify(rows)
 
-# update captain table
+# update captain row
 @app.route('/captain/update/<id>', methods=['PUT'])
 def update_captain(id):
     # request form to update at certain id in captain table
@@ -88,6 +88,18 @@ def update_captain(id):
 
     return 'Captain updated!'
 
+# delete captain row
+@app.route('/captain/delete/<id>', methods = ['DELETE'])
+def delete_captain(id):
+    delete_id = id
 
+    # SQL statement to delete row
+    delete_row = "DELETE FROM captain WHERE id = %s" % delete_id
+
+    # commit to SQL database
+    mycursor.execute(delete_row)
+    space_db.commit()
+
+    return 'Captain deleted!'
 
 app.run()
