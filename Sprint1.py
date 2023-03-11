@@ -37,6 +37,23 @@ def all_captain():
 
     return jsonify(rows)
 
+# add to captain table
+@app.route('/api/captain/add', methods=["POST"])
+def add_captain():
+    #request form to add to captain table
+    firstname = request.form['firstname']
+    lastname = request.form['lastname']
+    space_rank = request.form['space_rank']
+    homeplanet = request.form['homeplanet']
+    
+    # formats which column to add new items to 
+    row_add = """INSERT INTO captain (firstname, lastname, space_rank, homeplanet) VALUES (%s, %s, %s, %s)"""
+    row_value = (firstname, lastname, space_rank, homeplanet)
+
+    mycursor.execute(row_add, row_value)
+    space_db.commit()
+    # confirms to user that row was added
+    return 'Row added!'
 
 
 app.run()
