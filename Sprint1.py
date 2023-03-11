@@ -102,4 +102,20 @@ def delete_captain(id):
 
     return 'Captain deleted!'
 
+# spaceship APIs
+# add to spaceship table
+@app.route('/spaceship/add', methods=['POST'])
+def add_spaceship():
+    maxweight = request.form['maxweight']
+    captainid = request.form['captainid']
+    # SQL statement to check if captainid exists
+    add_row = "INSERT INTO spaceship (maxweight, captainid) VALUES (%s, %s)"
+    row_value = maxweight, captainid
+
+    # execute to SQL
+    mycursor.execute(add_row, row_value)
+    space_db.commit()
+
+    return 'Spaceship added!'
+
 app.run()
