@@ -15,7 +15,7 @@ https://www.w3schools.com/sql/sql_foreignkey.asp
 app = flask.Flask(__name__) # sets up application
 app.config["DEBUG"] = True # allow to show errors in browser
 
-#connect to database
+# connect to database
 space_db = mysql.connector.connect(
     host = "cis3368database.cglj5nvoedes.us-east-1.rds.amazonaws.com", 
     user = "jchu8", 
@@ -24,8 +24,15 @@ space_db = mysql.connector.connect(
 
 mycursor = space_db.cursor()
 
-
-
+# view cargo table
+@app.route('/cargo/all', methods=["GET"])
+def cargo_view():
+        # SQL statement to view cargo table
+        return_cargo = """SELECT * FROM cargo"""
+        mycursor.execute(return_cargo)
+        cargo_table = mycursor.fetchall()
+        # return table
+        return jsonify(cargo_table)
 
 
 app.run()
