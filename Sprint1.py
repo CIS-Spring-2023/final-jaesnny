@@ -9,6 +9,7 @@ import mysql.connector
 """
 References:
 https://www.w3schools.com/sql/sql_foreignkey.asp
+securityapi.py
 """
 
 # setting up an application name
@@ -23,6 +24,30 @@ space_db = mysql.connector.connect(
     database = "cis3368db")
 
 mycursor = space_db.cursor()
+
+# login API
+authorizedusers = [
+    {
+        # admin user
+        'username': 'main',
+        'password': 'lolol',
+        'admininfo': 'Welcome to Space!'
+    }
+]
+
+@app.route('/login', methods=["GET"])
+def user_pass():
+    # get header parameters
+    username = request.headers['username']
+    password = request.headers['password']
+    # loop through all users and passwords and find match to gain authorization
+    for au in authorizedusers:
+        if au['username'] == username and au['password'] == password:
+            admininfo = au['admininfo']
+            returninfo = []
+            returninfo.append(admininfo)
+            return jsonify(returninfo)
+    return 'Incorrect username and password combination :P'
 
 # captain APIs
 # view captain table
