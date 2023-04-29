@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<body class="container">
+
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+
+    <main>
+        <div class="row">
+            <div class="col-sm-8">
+                <h1>Cargo</h1>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Weight</th>
+                            <th>Cargo Type</th>
+                            <th>Departure</th>
+                            <th>Arrival</th>
+                            <th>Ship ID</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (locals.cargo) { %>
+                            <% locals.cargo.forEach(function(cargo) { %>
+                                <tr>
+                                    <td><%= cargo[0] %></td>
+                                    <td><%= cargo[1] %></td>
+                                    <td><%= cargo[2] %></td>
+                                    <td><%= cargo[3] %></td>
+                                    <td><%= cargo[4] %></td>
+                                    <td><%= cargo[5] %></td>
+                                </tr>
+                            <% }); %>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+
+</body>
+
+</html>

@@ -15,30 +15,114 @@ app.set('view engine', 'ejs');
 
 // index page 
 app.get('/', function(req, res) {
-    //res.render("pages/index.ejs", {});
-    res.render("pages/login.ejs", {});
+    var tagline = "Please log in to access the cargo management system.";
+    res.render('pages/login', { tagline: tagline });
 });
 
+app.post('/', function (req, res) {
+    var username = req.body.username;
+    var password = req.body.password;
+    if (username === 'admin' && password === 'pass') {
+        res.redirect('/cargo');
+    } else {
+        res.render('pages/login.ejs', { error: 'Invalid username or password' });
+    }
+});
+
+// choose API page
+app.get('/choose', function(req, res) {
+
+        //itunes API call
+        axios.get('https://itunes.apple.com/search?term=radiohead')
+        .then((response)=>{
+            let musicData = response.data;
+            console.log(musicData);
+            res.render('pages/choose', {
+                music: musicData
+            });
+        });
+
+});
+
+// about page
+app.get('/cargo', function(req, res) {
+
+    //local API call to my Python REST API that delivers cars
+    axios.get(`http://127.0.0.1:5000/cargo`)
+    .then((response)=>{
+        var cargo = response.data;
+        console.log(cargo);
+         // use res.render to load up an ejs view file
+        res.render('pages/cargo.ejs', {
+            cargo: cargo,
+        });
+    }); 
+    
+
+    
+    //get multiple service calls and combine the results in 1 function
+    // axios.all([axios.get(`http://127.0.0.1:5000/api/car/all`),
+    // axios.get(`http://127.0.0.1:5000/api/car?id=2`)])
+    // .then(axios.spread((firstResponse, secondResponse) => {  
+  
+    // var cars = firstResponse.data;
+    // var tagline = "Here is the data coming from my own API";
+    // var aSingleCar = secondResponse.data[0];
+
+    // //use res.render to load up an ejs view file
+    // res.render('pages/about', {
+    //     cars: cars,
+    //     tagline: tagline,
+    //     single: aSingleCar
+    // });
+    // }))
+    // .catch(error => console.log(error)); 
+    
+    
+});
+
+// examples page 
+app.get('/examples', function(req, res) {
+    var exampleVar = "Javascript";
+    
+    // this will render our new example spage 
+    res.render("pages/examples.ejs", {exampleVar: exampleVar});
+});
 
 app.post('/process_form', function(req, res){
-    //get json file
-    var url = "https://dummyjson.com/carts";
-    axios.get(url)
-    .then(response => {
-        const { carts } = response.data;
-        const averages = carts.map(cart => {
-           // retrieve data from json file of each cart's discounted total and total quantity 
-            const { discountedTotal, totalQuantity } = cart;
-            // get average from discounted total and total quantity
-            const avg = discountedTotal / totalQuantity;
-            //return info using cart id and average limiting to two decimal places
-            return { id: cart.id, average: avg.toFixed(2) };
-        });
-        // render to results page
-        res.render('pages/results.ejs', { averages });
-    });
-});
-           
+    // create a variable to hold the username parsed from the request body
+    var username = req.body.username
+    // create a variable to hold ....
+    var password = req.body.password
+
+    let check = 0;
+
+    if (req.body.rememberme == 'on')
+            check = 1;
+
+   console.log("email is: " + username);
+   console.log("password is: " + password);
+   console.log("checkedbox checked: " + check);
+
+    res.render('pages/thanks.ejs', {body: req.body})
+  
+  })
+
+  app.post('/processdynamicform', function(req, res){
+    //go directly to thanks.ejs and show dynamic checkbox selection
+    console.log(req.body);
+    selectedID = req.body;
+    for (x in req.body) {
+        var selectedName = x;
+        console.log("selected name is: " + selectedName);
+    }
+    res.render('pages/thanks.ejs', {body: req.body})
+  
+  })
+
+
+
+
 
 app.listen(8080);
 console.log('8080 is the magic port');
