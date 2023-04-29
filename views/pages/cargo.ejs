@@ -29,14 +29,19 @@
                     <tbody>
                         <% if (locals.cargo) { %>
                             <% locals.cargo.forEach(function(cargo) { %>
-                                <tr>
-                                    <td><%= cargo[0] %></td>
-                                    <td><%= cargo[1] %></td>
-                                    <td><%= cargo[2] %></td>
-                                    <td><%= cargo[3] %></td>
-                                    <td><%= cargo[4] %></td>
-                                    <td><%= cargo[5] %></td>
-                                </tr>
+                                <% var currentDate = new Date(); %>
+                                <% var departureDate = new Date(cargo[3]); %>
+                                <% var arrivalDate = new Date(cargo[4]); %>
+                                <% if (departureDate <= currentDate && arrivalDate > currentDate) { %>
+                                    <tr>
+                                        <td><%= cargo[0] %></td>
+                                        <td><%= cargo[1] %></td>
+                                        <td><%= cargo[2] %></td>
+                                        <td><%= cargo[3] %></td>
+                                        <td><%= cargo[4] %></td>
+                                        <td><%= cargo[5] %></td>
+                                    </tr>
+                                <% } %>
                             <% }); %>
                         <% } %>
                     </tbody>
