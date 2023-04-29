@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('../partials/head'); %>
+</head>
+
+<body class="container">
+
+  <header>
+    <%- include('../partials/header'); %>
+  </header>
+
+  <main>
+    <div class="row">
+      <div class="col-sm-8">
+        <h1>Spaceships</h1>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Max Weight</th>
+              <th>Captain ID</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if (locals.spaceship) { %>
+            <% locals.spaceship.forEach(function(spaceship) { %>
+            <tr>
+              <td><%= spaceship[0] %></td>
+              <td><%= spaceship[1] %></td>
+              <td><%= spaceship[2] %></td>
+            </tr>
+            <% }) %>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <%- include('../partials/footer'); %>
+  </footer>
+
+</body>
+
+</html>

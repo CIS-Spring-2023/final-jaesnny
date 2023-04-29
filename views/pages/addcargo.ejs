@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<body class="container">
+
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+
+    <main>
+        <div class="row">
+            <div class="col-sm-8">
+                <h1>Cargo</h1>
+                <table class="table">
+                    <!-- table code -->
+                </table>
+
+                <h2>Add New Cargo</h2>
+                <form action="/addcargo" method="POST">
+                    <div class="form-group">
+                        <label for="weight">Weight:</label>
+                        <input type="text" class="form-control" id="weight" name="weight" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="type">Cargo Type:</label>
+                        <input type="text" class="form-control" id="type" name="type" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="departure">Departure:</label>
+                        <input type="datetime-local" class="form-control" id="departure" name="departure" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="arrival">Arrival:</label>
+                        <input type="datetime-local" class="form-control" id="arrival" name="arrival" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="ship_id">Ship ID:</label>
+                        <input type="text" class="form-control" id="ship_id" name="ship_id" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+
+</body>
+
+</html>
