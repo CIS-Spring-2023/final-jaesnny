@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('../partials/head'); %>
+</head>
+
+<body class="container">
+
+  <header>
+    <%- include('../partials/header'); %>
+  </header>
+
+  <main>
+    <div class="row">
+      <div class="col-sm-8">
+        <h1>Add New Captain</h1>
+        <form action="/captain/add" method="POST">
+          <div>
+            <label for="firstname">First Name:</label>
+            <input type="text" id="firstname" name="firstname" required>
+          </div>
+          <div>
+            <label for="lastname">Last Name:</label>
+            <input type="text" id="lastname" name="lastname" required>
+          </div>
+          <div>
+            <label for="space_rank">Space Rank:</label>
+            <input type="text" id="space_rank" name="space_rank" required>
+          </div>
+          <div>
+            <label for="homeplanet">Home Planet:</label>
+            <input type="text" id="homeplanet" name="homeplanet" required>
+          </div>
+          <div>
+            <button type="submit" value="Submit">Add New Captain</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+  </div>
+  </div>
+  </main>
+  <th>
+    <a href="/captain" class="btn btn-primary">View Captains</a>
+  </th>
+  <th>
+    <a href="/captain/update" class="btn btn-primary">Update Captain</a>
+  </th>
+  <th>
+    <a href="/captain/delete" class="btn btn-primary">Delete Captain</a>
+  </th>
+  <footer>
+    <%- include('../partials/footer'); %>
+  </footer>
+  <script>
+    const form = document.getElementById('add-captain-form');
+    form.addEventListener('submit', (event) => {
+      event.preventDefault(); // prevent default form submission
+      const formData = new FormData(form);
+      const json = {};
+      formData.forEach((value, key) => {
+        json[key] = value;
+      });
+      const options = {
+        method: 'POST',
+        body: JSON.stringify(json),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      };
+      fetch('/captain/add', options)
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error(error));
+    });
+  </script>
+</body>
+
+</html>
