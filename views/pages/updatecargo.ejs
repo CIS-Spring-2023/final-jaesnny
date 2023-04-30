@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('../partials/head'); %>
+</head>
+
+<body class="container">
+
+  <header>
+    <%- include('../partials/header'); %>
+  </header>
+
+  <main>
+    <div class="row">
+      <div class="col-sm-8">
+        <h1>Update a Cargo</h1>
+        <form action="/cargo/update" method="POST">
+          <label for="weight">Weight:</label>
+          <input type="text" id="weight" name="weight"><br><br>
+          <label for="cargotype">Cargo Type:</label>
+          <input type="text" id="cargotype" name="cargotype"><br><br>
+          <label for="departure">Departure:</label>
+          <input type="date" id="departure" name="departure"><br><br>
+          <label for="arrival">Arrival:</label>
+          <input type="date" id="arrival" name="arrival"><br><br>
+          <label for="shipid">Ship ID:</label>
+          <input type="number" id="shipid" name="shipid"><br><br>
+          <input type="submit" value="Submit">
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <%- include('../partials/footer'); %>
+  </footer>
+
+</body>
+
+</html>

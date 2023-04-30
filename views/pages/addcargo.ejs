@@ -20,26 +20,26 @@
                 </table>
 
                 <h2>Add New Cargo</h2>
-                <form action="/addcargo" method="POST">
+                <form action="/cargo/add" method="POST">
                     <div class="form-group">
                         <label for="weight">Weight:</label>
-                        <input type="text" class="form-control" id="weight" name="weight" required>
+                        <input type="text" id="weight" name="weight" required>
                     </div>
                     <div class="form-group">
                         <label for="type">Cargo Type:</label>
-                        <input type="text" class="form-control" id="type" name="type" required>
+                        <input type="text" id="cargotype" name="cargotype" required>
                     </div>
                     <div class="form-group">
                         <label for="departure">Departure:</label>
-                        <input type="datetime-local" class="form-control" id="departure" name="departure" required>
+                        <input type="datetime-local" id="departure" name="departure" required>
                     </div>
                     <div class="form-group">
                         <label for="arrival">Arrival:</label>
-                        <input type="datetime-local" class="form-control" id="arrival" name="arrival" required>
+                        <input type="datetime-local" id="arrival" name="arrival" required>
                     </div>
                     <div class="form-group">
-                        <label for="ship_id">Ship ID:</label>
-                        <input type="text" class="form-control" id="ship_id" name="ship_id" required>
+                        <label for="shipid">Ship ID:</label>
+                        <input type="text" id="shipid" name="shipid" required>
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>

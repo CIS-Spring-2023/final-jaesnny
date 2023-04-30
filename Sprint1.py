@@ -10,6 +10,7 @@ import mysql.connector
 References:
 https://www.w3schools.com/sql/sql_foreignkey.asp
 securityapi.py
+https://tedboy.github.io/flask/generated/generated/flask.Request.get_json.html
 """
 
 # setting up an application name
@@ -66,10 +67,11 @@ def all_captain():
 @app.route('/captain/add', methods=["POST"])
 def add_captain():
     #request form to add to captain table
-    firstname = request.form['firstname']
-    lastname = request.form['lastname']
-    space_rank = request.form['space_rank']
-    homeplanet = request.form['homeplanet']
+    data = request.get_json()
+    firstname = data['firstname']
+    lastname = data['lastname']
+    space_rank = data['space_rank']
+    homeplanet = data['homeplanet']
     
     # formats which column to add new items to 
     row_add = """INSERT INTO captain (firstname, lastname, space_rank, homeplanet) VALUES (%s, %s, %s, %s)"""
@@ -78,7 +80,7 @@ def add_captain():
     mycursor.execute(row_add, row_value)
     space_db.commit()
     # confirms to user that row was added
-    return 'Captain added!'
+    return f"New captain added: {row_value}"
 
 # view captain table
 @app.route('/captain', methods=["GET"])
@@ -131,8 +133,9 @@ def delete_captain(id):
 # add to spaceship table
 @app.route('/spaceship/add', methods=['POST'])
 def add_spaceship():
-    maxweight = request.form['maxweight']
-    captainid = request.form['captainid']
+    data = request.get_json()
+    maxweight = data['maxweight']
+    captainid = data['captainid']
     # SQL statement to check if captainid exists
     add_row = "INSERT INTO spaceship (maxweight, captainid) VALUES (%s, %s)"
     row_value = maxweight, captainid
@@ -190,11 +193,12 @@ def delete_spaceship(id):
 @app.route('/cargo/add', methods=['POST'])
 def add_cargo():
     # request form to add row to cargo table
-    weight = request.form['weight']
-    cargotype = request.form['cargotype']
-    departure = request.form['departure']
-    arrival = request.form['arrival']
-    shipid = request.form['shipid']
+    data = request.get_json()
+    weight = data['weight']
+    cargotype = data['cargotype']
+    departure = data['departure']
+    arrival = data['arrival']
+    shipid = data['shipid']
 
     # SQL statement to add row
     add_row = "INSERT INTO cargo (weight, cargotype, departure, arrival, shipid) VALUES (%s, %s, %s, %s, %s)"

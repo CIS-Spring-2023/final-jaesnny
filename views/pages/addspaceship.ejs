@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('../partials/head'); %>
+</head>
+
+<body class="container">
+
+  <header>
+    <%- include('../partials/header'); %>
+  </header>
+
+  <main>
+    <div class="row">
+      <div class="col-sm-8">
+        <h1>Add New Spaceship</h1>
+
+        <form action="/spaceship/add" method="POST">
+          <div>
+            <label for="maxweight">Maxweight</label>
+            <input type="number" id="maxweight" name="maxweight" required>
+          </div>
+
+          <div>
+            <label for="captainid">Captainid</label>
+            <input type="text" id="captainid" name="captainid" required>
+          </div>
+
+          <div>
+            <button type="submit">Add Spaceship</button>
+          </div>
+        </form>
+</body>
+
+</html>

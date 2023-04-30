@@ -14,15 +14,19 @@
   <main>
     <div class="row">
       <div class="col-sm-8">
-        <h1>Delete a Captain</h1>
-        <form action="/captain/delete" method="POST">
-          <div>
-            <label for="id">ID:</label>
-            <input type="text" id="id" name="id" required>
-          </div>
-          <div>
-            <button type="submit" value="Submit">Delete Captain</button>
-          </div>
+        <h1>Update a Captain</h1>
+        <form action="/captain/update" method="POST">
+          <label for="id">ID:</label>
+          <input type="text" id="id" name="id"><br><br>
+          <label for="firstname">First Name:</label>
+          <input type="text" id="firstname" name="newfirstname"><br><br>
+          <label for="lastname">Last Name:</label>
+          <input type="text" id="lastname" name="newlastname"><br><br>
+          <label for="space_rank">Space Rank:</label>
+          <input type="text" id="space_rank" name="newspace_rank"><br><br>
+          <label for="homeplanet">Home Planet:</label>
+          <input type="text" id="homeplanet" name="newhomeplanet"><br><br>
+          <input type="submit" value="Submit">
         </form>
       </div>
     </div>
